@@ -17,6 +17,7 @@ def load_data(url):
     df = df.dropna(subset=["timestamp"])
     return df
 
+# ✅ تحميل البيانات
 try:
     df = load_data(url)
     st.success("✅ تم تحميل البيانات بنجاح.")
@@ -24,14 +25,14 @@ except Exception as e:
     st.error(f"❌ فشل في تحميل البيانات: {e}")
     st.stop()
 
-# 🧠 اختيار لاعب معين (إن وجد)
+# 🧠 اختيار لاعب (اختياري)
 if "player_id" in df.columns:
     player_ids = df["player_id"].dropna().unique()
     selected_player = st.selectbox("🎮 اختر اللاعب", options=["جميع اللاعبين"] + list(player_ids))
     if selected_player != "جميع اللاعبين":
         df = df[df["player_id"] == selected_player]
 
-# ✅ 1. أوقات اللعب
+# ✅ 1. تحليل أوقات اللعب
 st.header("⏰ تحليل أوقات اللعب")
 if "timestamp" in df.columns:
     df["hour"] = df["timestamp"].dt.hour
@@ -52,18 +53,7 @@ if {"x", "y"}.issubset(df.columns):
 else:
     st.warning("⚠️ لا يمكن عرض المسار بدون أعمدة 'x' و'y'.")
 
-# ✅ 3. توزيع النتائج أو النقاط
-st.header("✅❌ نتائج أو درجات اللاعبين")
-if "finalScore" in df.columns:
-    st.subheader("📈 توزيع النقاط")
-    st.bar_chart(df["finalScore"].value_counts().sort_index())
-elif "result" in df.columns:
-    st.subheader("📊 توزيع النتائج")
-    st.bar_chart(df["result"].value_counts())
-else:
-    st.warning("⚠️ لا يوجد عمود 'finalScore' أو 'result' في البيانات.")
-
-# ✅ 4. الخريطة الحرارية
+# ✅ 3. الخريطة الحرارية
 st.header("🔥 الخريطة الحرارية لتحركات الثعبان")
 if {"x", "y"}.issubset(df.columns):
     heatmap_data = df.groupby(["y", "x"]).size().unstack(fill_value=0)
@@ -74,3 +64,5 @@ if {"x", "y"}.issubset(df.columns):
     st.pyplot(fig2)
 else:
     st.warning("⚠️ لا يمكن رسم الخريطة الحرارية بدون 'x' و'y'.")
+
+# streamlit run dashboard.py
