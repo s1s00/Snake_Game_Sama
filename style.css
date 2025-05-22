@@ -12,6 +12,7 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
+  direction: rtl; /* لعرض النص من اليمين */
 }
 
 .wrapper {
@@ -19,9 +20,29 @@ body {
 }
 
 .game-details {
-  margin-bottom: 10px;
-  font-size: 20px;
+  margin-bottom: 15px;
+  font-size: 18px;
+  line-height: 1.8;
+  background-color: #333;
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
 }
+
+.game-info {
+  margin-bottom: 15px;
+  font-size: 16px;
+  line-height: 1.6;
+  background-color: #333;
+  padding: 10px 15px;
+  border-radius: 10px;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.1);
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: right; /* نص من اليمين */
+}
+
 .play-board {
   width: 600px;
   height: 600px;
@@ -32,7 +53,6 @@ body {
   border: 2px solid #fff;
   margin: auto;
 }
-
 
 .head {
   background: #00bfff;
