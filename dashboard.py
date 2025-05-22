@@ -3,8 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-# ----------------------
-# 🟡 تحميل البيانات من GitHub
+# رابط البيانات (تعديل حسب ملفك)
 url = "https://raw.githubusercontent.com/s1s00/Snake_Game_Sama/main/player_data.json"
 
 try:
@@ -16,16 +15,14 @@ except Exception as e:
 
 st.title("📊 لوحة تحكم تحليلات Snake Game")
 
-# ----------------------
-# 🔵 تحويل الطابع الزمني إلى datetime
+# تحويل الطابع الزمني
 if "timestamp" in df.columns:
     df["timestamp"] = pd.to_datetime(df["timestamp"], errors='coerce')
     df.dropna(subset=["timestamp"], inplace=True)
 else:
     st.warning("⚠️ العمود 'timestamp' غير موجود في البيانات.")
 
-# ----------------------
-# ⏰ تحليل أوقات اللعب
+# تحليل أوقات اللعب
 st.header("⏰ أوقات اللعب")
 if "timestamp" in df.columns:
     df["hour"] = df["timestamp"].dt.hour
@@ -33,8 +30,7 @@ if "timestamp" in df.columns:
 else:
     st.write("لا يمكن عرض أوقات اللعب بدون عمود timestamp.")
 
-# ----------------------
-# 🧭 تحليل حركة اللاعبين
+# حركة اللاعبين (إذا يوجد x و y)
 st.header("🧭 حركة اللاعبين")
 if {"x", "y"}.issubset(df.columns):
     fig, ax = plt.subplots()
@@ -44,3 +40,4 @@ if {"x", "y"}.issubset(df.columns):
     st.pyplot(fig)
 else:
     st.write("لا يمكن عرض حركة اللاعبين بدون أعمدة x و y.")
+
